@@ -7,10 +7,10 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family: 'Arial', sans-serif;
+  background: radial-gradient(circle, #ff5f8f, #ff2e63);
   overflow: hidden;
+  text-align: center;
   color: white;
 }
 
@@ -26,22 +26,25 @@ body {
 .active { display: flex; }
 
 h1 {
-  font-size: 34px;
+  font-size: 38px;
+  margin-bottom: 20px;
+  animation: pop 0.6s ease;
 }
 
 button {
-  padding: 15px 30px;
-  font-size: 20px;
+  padding: 18px 35px;
+  font-size: 22px;
   border: none;
-  border-radius: 12px;
-  margin: 10px;
+  border-radius: 50px;
+  margin: 12px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .yes {
-  background: #ff2e63;
+  background: linear-gradient(45deg,#ff2e63,#ff85a2);
   color: white;
-  transition: transform 0.3s;
+  box-shadow: 0 0 20px rgba(255,46,99,0.8);
 }
 
 .no {
@@ -49,84 +52,109 @@ button {
   color: white;
 }
 
-/* floating emojis */
-.float {
+@keyframes pop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+/* SHAKE */
+.shake {
+  animation: shake 0.3s;
+}
+@keyframes shake {
+  0% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+/* CONFETTI */
+.confetti {
   position: absolute;
-  font-size: 30px;
-  animation: floatUp 4s linear infinite;
+  width: 10px;
+  height: 10px;
+  background: red;
+  animation: fall 3s linear forwards;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(100vh); opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(720deg); }
 }
 
-/* envelope */
+/* ENVELOPE */
 .envelope {
   background: white;
   color: #ff2e63;
-  padding: 25px;
+  padding: 30px;
   border-radius: 20px;
   max-width: 420px;
-  animation: pop 1s ease forwards;
+  animation: open 1.2s ease forwards;
 }
 
-@keyframes pop {
-  from { transform: scale(0); }
-  to { transform: scale(1); }
+@keyframes open {
+  0% { transform: scale(0) rotateX(90deg); opacity: 0; }
+  100% { transform: scale(1) rotateX(0); opacity: 1; }
+}
+
+/* KISSES */
+.kiss {
+  position: absolute;
+  font-size: 28px;
+  animation: fall 4s linear infinite;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Page 1 -->
+<!-- PAGE 1 -->
 <div class="page active" id="p1">
 <h1>Will you be my Valentine? 💘🥺</h1>
-<button class="yes" onclick="yes()">YES 😍💖</button>
+<button class="yes" id="yesBtn" onclick="yes()">YES 😍</button>
 <button class="no" onclick="next(2)">No 🙈</button>
 </div>
 
-<!-- Page 2 -->
+<!-- PAGE 2 -->
 <div class="page" id="p2">
 <h1>Are you really sure?? 😾💔</h1>
 <button class="yes" onclick="grow(); yes()">YES 😍</button>
-<button class="no" onclick="next(3)">Still no 😶</button>
+<button class="no" onclick="next(3)">No 😐</button>
 </div>
 
-<!-- Page 3 -->
+<!-- PAGE 3 -->
 <div class="page" id="p3">
-<h1>I'm starting to get mad 😠🔥</h1>
+<h1>Okay… now I’m getting mad 😠</h1>
 <button class="yes" onclick="grow(); yes()">YES 😍</button>
 <button class="no" onclick="next(4)">No 😬</button>
 </div>
 
-<!-- Page 4 -->
+<!-- PAGE 4 -->
 <div class="page" id="p4">
 <h1>I AM MAD NOW 😡💢</h1>
 <button class="yes" onclick="grow(); yes()">YES 😍</button>
 <button class="no" onclick="next(5)">No 😭</button>
 </div>
 
-<!-- Final Choice -->
+<!-- FINAL -->
 <div class="page" id="p5">
-<h1>LAST CHANCE — YES OR YES? 😤💘</h1>
-<button class="yes" style="font-size:42px;padding:25px 55px;" onclick="yes()">YES 💖😍</button>
+<h1>LAST CHANCE. THIS IS IT. 😤💘</h1>
+<button class="yes" style="font-size:50px;padding:30px 70px;" onclick="yes()">YES 💖🔥</button>
 </div>
 
-<!-- Celebration -->
+<!-- CELEBRATION -->
 <div class="page" id="celebrate">
-<h1>HE SAID YES!!! 🎉💞🥰</h1>
+<h1>💥 HE SAID YES!!! 💥</h1>
 
 <div class="envelope">
 <p>
-💌 This is our 7th year of knowing each other… and I would choose you to be my Valentine forever and ever.  
-For the next 700… or 7,000… or 70,000… or even 700,000 years and beyond.  
+💌 This is our 7th year of knowing each other…  
+and if I had to choose again, I would still choose **you** — every single time.  
 
-You are mine and I am yours 💞  
-One single day of love could never be enough to express how deeply I love you.  
+For the next 700… 7,000… 70,000… or even 700,000 years and beyond 💞  
+You are mine and I am yours — now and always.  
 
-I choose you — always and forever. 💖✨
+One day of love is far too little to express how deeply I love you.  
+I choose you. Forever. 💖✨
 </p>
 </div>
 </div>
@@ -135,13 +163,14 @@ I choose you — always and forever. 💖✨
 let scale = 1;
 
 function next(p){
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),300);
 document.querySelector(".active").classList.remove("active");
 document.getElementById("p"+p).classList.add("active");
-emojiRain("😾");
 }
 
 function grow(){
-scale += 0.25;
+scale += 0.3;
 document.querySelectorAll(".yes").forEach(b=>{
 b.style.transform = "scale("+scale+")";
 });
@@ -150,20 +179,31 @@ b.style.transform = "scale("+scale+")";
 function yes(){
 document.querySelector(".active").classList.remove("active");
 document.getElementById("celebrate").classList.add("active");
-emojiRain("🎆");
-emojiRain("💖");
-emojiRain("😘");
+confetti();
+kisses();
 }
 
-function emojiRain(e){
+function confetti(){
+for(let i=0;i<150;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=["#ff2e63","#ffd700","#00eaff","#ffffff"][Math.floor(Math.random()*4)];
+c.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+function kisses(){
 setInterval(()=>{
-let x=document.createElement("div");
-x.className="float";
-x.innerHTML=e;
-x.style.left=Math.random()*100+"vw";
-document.body.appendChild(x);
-setTimeout(()=>x.remove(),4000);
-},200);
+let k=document.createElement("div");
+k.className="kiss";
+k.innerHTML="😘";
+k.style.left=Math.random()*100+"vw";
+document.body.appendChild(k);
+setTimeout(()=>k.remove(),4000);
+},250);
 }
 </script>
 
