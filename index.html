@@ -11,6 +11,7 @@ body {
   text-align: center;
   background: linear-gradient(135deg,#ff758c,#ff7eb3);
   overflow: hidden;
+  color: white;
 }
 
 .page {
@@ -19,13 +20,13 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 20px;
 }
 
 .active { display: flex; }
 
 h1 {
-  color: white;
-  padding: 10px;
+  font-size: 34px;
 }
 
 button {
@@ -48,47 +49,31 @@ button {
   color: white;
 }
 
-img {
-  width: 260px;
-  border-radius: 15px;
-}
-
-/* fireworks */
-.firework {
+/* floating emojis */
+.float {
   position: absolute;
   font-size: 30px;
-  animation: explode 1.5s linear forwards;
+  animation: floatUp 4s linear infinite;
 }
 
-@keyframes explode {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(3); opacity: 0; }
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
 }
 
 /* envelope */
 .envelope {
   background: white;
-  padding: 20px;
-  border-radius: 15px;
-  max-width: 400px;
-  animation: open 1s ease forwards;
+  color: #ff2e63;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 420px;
+  animation: pop 1s ease forwards;
 }
 
-@keyframes open {
+@keyframes pop {
   from { transform: scale(0); }
   to { transform: scale(1); }
-}
-
-/* kisses */
-.kiss {
-  position: absolute;
-  font-size: 28px;
-  animation: fall 4s linear infinite;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-10vh); }
-  100% { transform: translateY(110vh); }
 }
 </style>
 </head>
@@ -97,48 +82,51 @@ img {
 
 <!-- Page 1 -->
 <div class="page active" id="p1">
-<h1>Will you be my Valentine? 💘</h1>
-<button class="yes" id="yesBtn" onclick="yes()">YES 😍</button>
+<h1>Will you be my Valentine? 💘🥺</h1>
+<button class="yes" onclick="yes()">YES 😍💖</button>
 <button class="no" onclick="next(2)">No 🙈</button>
 </div>
 
 <!-- Page 2 -->
 <div class="page" id="p2">
-<img src="https://i.imgur.com/6RL6V4p.jpeg">
-<h1>Are you sure?? 🤨</h1>
-<button class="yes" onclick="growYes();yes()">YES 😍</button>
-<button class="no" onclick="next(3)">No 😶</button>
+<h1>Are you really sure?? 😾💔</h1>
+<button class="yes" onclick="grow(); yes()">YES 😍</button>
+<button class="no" onclick="next(3)">Still no 😶</button>
 </div>
 
 <!-- Page 3 -->
 <div class="page" id="p3">
-<img src="https://i.imgur.com/j5FZB6H.jpeg">
-<h1>I'm starting to get mad 😠</h1>
-<button class="yes" onclick="growYes();yes()">YES 😍</button>
+<h1>I'm starting to get mad 😠🔥</h1>
+<button class="yes" onclick="grow(); yes()">YES 😍</button>
 <button class="no" onclick="next(4)">No 😬</button>
 </div>
 
 <!-- Page 4 -->
 <div class="page" id="p4">
-<img src="https://i.imgur.com/Y8F7QYB.jpeg">
-<h1>I AM MAD NOW 😡</h1>
-<button class="yes" onclick="growYes();yes()">YES 😍</button>
+<h1>I AM MAD NOW 😡💢</h1>
+<button class="yes" onclick="grow(); yes()">YES 😍</button>
 <button class="no" onclick="next(5)">No 😭</button>
 </div>
 
-<!-- Page 5 -->
+<!-- Final Choice -->
 <div class="page" id="p5">
-<h1>LAST CHANCE — YES OR YES? 😤</h1>
-<button class="yes" style="font-size:40px;padding:25px 50px;"
-onclick="yes()">YES 💖</button>
+<h1>LAST CHANCE — YES OR YES? 😤💘</h1>
+<button class="yes" style="font-size:42px;padding:25px 55px;" onclick="yes()">YES 💖😍</button>
 </div>
 
 <!-- Celebration -->
 <div class="page" id="celebrate">
-<h1>🎆 HE SAID YES!!! 🎆</h1>
+<h1>HE SAID YES!!! 🎉💞🥰</h1>
+
 <div class="envelope">
 <p>
-this is our 7th year of knowing eachother and id choose for you to be my valentines forever and ever for the next 700 or 7000 or 70,000 or 700,000 years and so forth. You are mine and I am yours. One day of love is too less of a time to express my love to you
+💌 This is our 7th year of knowing each other… and I would choose you to be my Valentine forever and ever.  
+For the next 700… or 7,000… or 70,000… or even 700,000 years and beyond.  
+
+You are mine and I am yours 💞  
+One single day of love could never be enough to express how deeply I love you.  
+
+I choose you — always and forever. 💖✨
 </p>
 </div>
 </div>
@@ -146,45 +134,35 @@ this is our 7th year of knowing eachother and id choose for you to be my valenti
 <script>
 let scale = 1;
 
-function next(page){
+function next(p){
 document.querySelector(".active").classList.remove("active");
-document.getElementById("p"+page).classList.add("active");
+document.getElementById("p"+p).classList.add("active");
+emojiRain("😾");
 }
 
-function growYes(){
-scale += 0.3;
-document.querySelectorAll(".yes").forEach(btn=>{
-btn.style.transform = "scale("+scale+")";
+function grow(){
+scale += 0.25;
+document.querySelectorAll(".yes").forEach(b=>{
+b.style.transform = "scale("+scale+")";
 });
 }
 
 function yes(){
 document.querySelector(".active").classList.remove("active");
 document.getElementById("celebrate").classList.add("active");
-fireworks();
-kisses();
+emojiRain("🎆");
+emojiRain("💖");
+emojiRain("😘");
 }
 
-function fireworks(){
-for(let i=0;i<40;i++){
-let f=document.createElement("div");
-f.className="firework";
-f.innerHTML="🎆";
-f.style.left=Math.random()*100+"vw";
-f.style.top=Math.random()*100+"vh";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1500);
-}
-}
-
-function kisses(){
+function emojiRain(e){
 setInterval(()=>{
-let k=document.createElement("div");
-k.className="kiss";
-k.innerHTML="😘";
-k.style.left=Math.random()*100+"vw";
-document.body.appendChild(k);
-setTimeout(()=>k.remove(),4000);
+let x=document.createElement("div");
+x.className="float";
+x.innerHTML=e;
+x.style.left=Math.random()*100+"vw";
+document.body.appendChild(x);
+setTimeout(()=>x.remove(),4000);
 },200);
 }
 </script>
